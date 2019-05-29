@@ -102,3 +102,11 @@ rule filter_masked_regions:
         "output/STAR_align_MUC_filter_masked/{sample}.sam"
     shell:
         "samtools view -h -L {input.bed} {input.sam} -U {output} > /dev/null"
+
+rule final_fasta:
+    input:
+        "output/STAR_align_MUC_filter_masked/{sample}.sam"
+    output:
+        "output/FASTA_final/{sample}.fasta"
+    shell:
+        "samtools fasta {input} > {output}"
